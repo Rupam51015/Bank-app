@@ -1,0 +1,17 @@
+name: AWS OIDC Connect
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ConnectToAWS:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # This is required to request the OIDC JWT token
+      contents: read    # This is required to read the repository code
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/GitHubActionsWorkflowRole
+          aws-region: us-east-1 # Change to your preferred AWS region
